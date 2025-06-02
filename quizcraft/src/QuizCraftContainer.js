@@ -1,4 +1,10 @@
-// PUBLIC_INTERFACE
+/**
+ * PUBLIC_INTERFACE
+ * QuizCraftContainer
+ *
+ * Investigate and fix: Automatic question generation from uploaded documents is not functioning as expected.
+ * - We'll analyze the document upload workflow, API simulation, and question population logic.
+ */
 import React, { useState } from 'react';
 
 // PUBLIC_INTERFACE
