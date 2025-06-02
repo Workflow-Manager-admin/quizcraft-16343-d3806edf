@@ -1,4 +1,14 @@
 :root {
+  /* QuizCraft Color Palette */
+  --quizcraft-primary: #2D9CDB;
+  --quizcraft-secondary: #F2F2F2;
+  --quizcraft-accent: #27AE60;
+  --quizcraft-text-dark: #222;
+  --quizcraft-text-light: #ffffff;
+  --quizcraft-border: #c9d9e8;
+  --quizcraft-shadow: 0 2px 12px 0 rgba(44, 104, 166, 0.06);
+
+  /* fallback from template, override as needed */
   --base-light: #00ffff;
   --base-dark: #00008b;
   --text-color: #ffffff;
