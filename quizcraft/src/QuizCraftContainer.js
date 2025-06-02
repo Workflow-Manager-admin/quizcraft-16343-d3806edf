@@ -155,6 +155,70 @@ function QuizCraftContainer() {
     );
   }
 
+  // --- Document upload UI and state ---
+  const [fileUploadLoading, setFileUploadLoading] = useState(false);
+  const [fileUploadError, setFileUploadError] = useState('');
+  const [fileUploadSuccess, setFileUploadSuccess] = useState('');
+  const [uploadFileName, setUploadFileName] = useState('');
+
+  /**
+   * Handles the file upload and triggers the document-to-quiz generation process.
+   * Makes an API call (stubbed) to `/api/generate-quiz-from-document` and fills in quiz form.
+   */
+  async function handleFileUpload(event) {
+    const file = event.target.files && event.target.files[0];
+    setFileUploadError('');
+    setFileUploadSuccess('');
+    setUploadFileName('');
+    if (!file) return;
+
+    setUploadFileName(file.name);
+    setFileUploadLoading(true);
+
+    try {
+      // FormData for file upload
+      const formData = new FormData();
+      formData.append('document', file);
+
+      // Simulate API call to /api/generate-quiz-from-document
+      // Replace the below with a real fetch in production
+      // Example: const res = await fetch('/api/generate-quiz-from-document', {method:"POST", body:formData});
+      // const data = await res.json();
+
+      // --- API placeholder: Stub logic ---
+      await new Promise(res => setTimeout(res, 1700)); // simulate network/API delay
+
+      // Simulated API result:
+      // You'd replace this with actual backend output!
+      const simulatedGeneratedQuestions = [
+        {
+          type: "multiple-choice",
+          question: "Which planet is known as the Red Planet?",
+          options: ["Earth", "Venus", "Mars", "Jupiter"],
+          correct: 2
+        },
+        {
+          type: "true-false",
+          question: "Water boils at 100°C at sea level.",
+          correct: true
+        },
+        {
+          type: "short-answer",
+          question: "Who wrote '1984'?",
+          correct: "George Orwell"
+        }
+      ];
+      setQuizForm(qf => ({
+        ...qf,
+        questions: simulatedGeneratedQuestions
+      }));
+      setFileUploadSuccess("Quiz questions generated from document!");
+    } catch (err) {
+      setFileUploadError("Failed to generate quiz from the document. Please try again.");
+    }
+    setFileUploadLoading(false);
+  }
+
   // Quiz editor and creation form
   function renderQuizForm() {
     return (
@@ -167,6 +231,68 @@ function QuizCraftContainer() {
         padding: "36px 34px"
       }}>
         <h2 style={{color: COLOR_PRIMARY, marginTop: 0}}>{mode === "edit" ? "Edit Quiz" : "Create a New Quiz"}</h2>
+        {/* --- Document upload block --- */}
+        <div style={{
+          background: "#f6fbff",
+          border: `1.5px dashed ${COLOR_PRIMARY}`,
+          padding: "14px 12px",
+          marginBottom: 18,
+          borderRadius: 7,
+          display: "flex",
+          gap: "16px",
+          alignItems: "center"
+        }}>
+          <span style={{fontSize:16, fontWeight:500, color: COLOR_PRIMARY}}>Import from Document:</span>
+          <input
+            type="file"
+            accept=".pdf,.doc,.docx,.txt"
+            style={{
+              border: '1px solid #ccc',
+              padding: 7,
+              fontSize: 14,
+              cursor: "pointer",
+              background: "#fff",
+              minWidth: 180
+            }}
+            disabled={fileUploadLoading}
+            onChange={handleFileUpload}
+            aria-label="Upload a document to auto-generate quiz questions"
+          />
+          {fileUploadLoading && (
+            <span style={{
+                color: COLOR_ACCENT,
+                marginLeft: 10,
+                fontWeight: 500,
+                fontSize: 15
+              }}>
+              <span style={{marginRight:6}}>Generating questions...</span>
+              <span className="spinner" style={{
+                border: "2.3px solid #bce6fa",
+                borderTop: `2.3px solid ${COLOR_ACCENT}`,
+                borderRadius: "50%",
+                display: "inline-block",
+                width: "1.1em",
+                height: "1.1em",
+                animation: "spin 1s linear infinite",
+                verticalAlign: "middle"
+              }}/>
+              <style>{`
+                @keyframes spin {
+                  0% { transform: rotate(0deg);}
+                  100% {transform: rotate(360deg);}
+                }
+              `}</style>
+            </span>
+          )}
+          {fileUploadSuccess && (
+            <span style={{color: COLOR_ACCENT, marginLeft: 10, fontSize: 14}}>{fileUploadSuccess}</span>
+          )}
+          {fileUploadError && (
+            <span style={{color: "#e23e3e", marginLeft:10, fontSize:14}}>{fileUploadError}</span>
+          )}
+        </div>
+        {/* --- End Document upload block --- */}
+
         <div style={{display: "flex", flexDirection: "column", gap: 18}}>
           <label>
             <span style={{fontWeight: 500}}>Quiz Title<span style={{color: "#ea3c3c"}}>*</span></span>
