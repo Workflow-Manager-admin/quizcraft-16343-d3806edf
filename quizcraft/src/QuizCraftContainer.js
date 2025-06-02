@@ -216,12 +216,25 @@ function QuizCraftContainer() {
         }
       ];
       // When quiz questions are generated, auto-populate the form immediately
-      setQuizForm(qf => ({
-        ...qf,
-        questions: simulatedGeneratedQuestions
-      }));
+      setQuizForm(qf => {
+        // Avoid replacing a user-in-progress quiz (title/desc); only update questions.
+        // Optionally, suggest title if document name provides a good default.
+        let docTitle = file.name.split('.').slice(0, -1).join('.').replace(/[_-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        let updateTitle = !qf.title || qf.title.trim() === "";
+        return {
+          ...qf,
+          title: updateTitle ? docTitle : qf.title,
+          questions: simulatedGeneratedQuestions
+        };
+      });
       setFileUploadSuccess("Quiz questions generated from document!");
       // Optionally: you could automatically scroll to questions or focus as well, if desired
+      setTimeout(() => {
+        const questionOl = document.querySelector('ol');
+        if (questionOl) {
+          questionOl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 300);
     } catch (err) {
       setFileUploadError("Failed to generate quiz from the document. Please try again.");
     }
