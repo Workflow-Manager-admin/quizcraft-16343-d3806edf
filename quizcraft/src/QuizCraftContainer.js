@@ -163,7 +163,9 @@ function QuizCraftContainer() {
 
   /**
    * Handles the file upload and triggers the document-to-quiz generation process.
-   * Makes an API call (stubbed) to `/api/generate-quiz-from-document` and fills in quiz form.
+   * After a file is selected/uploaded, immediately generates quiz questions and updates the form.
+   * API call stubbed - auto populates quiz form on success.
+   * No user confirmation/button click required after file selection.
    */
   async function handleFileUpload(event) {
     const file = event.target.files && event.target.files[0];
@@ -181,15 +183,14 @@ function QuizCraftContainer() {
       formData.append('document', file);
 
       // Simulate API call to /api/generate-quiz-from-document
-      // Replace the below with a real fetch in production
+      // Replace with real API in production
       // Example: const res = await fetch('/api/generate-quiz-from-document', {method:"POST", body:formData});
       // const data = await res.json();
 
       // --- API placeholder: Stub logic ---
       await new Promise(res => setTimeout(res, 1700)); // simulate network/API delay
 
-      // Simulated API result:
-      // You'd replace this with actual backend output!
+      // Simulated API result; in production, parse from `data`
       const simulatedGeneratedQuestions = [
         {
           type: "multiple-choice",
@@ -208,11 +209,13 @@ function QuizCraftContainer() {
           correct: "George Orwell"
         }
       ];
+      // When quiz questions are generated, auto-populate the form immediately
       setQuizForm(qf => ({
         ...qf,
         questions: simulatedGeneratedQuestions
       }));
       setFileUploadSuccess("Quiz questions generated from document!");
+      // Optionally: you could automatically scroll to questions or focus as well, if desired
     } catch (err) {
       setFileUploadError("Failed to generate quiz from the document. Please try again.");
     }
