@@ -116,3 +116,116 @@ body {
   padding: 12px 24px;
   font-size: 1.1rem;
 }
+
+/* --- QUIZCRAFT CUSTOM STYLES (start) --- */
+.quizcraft-card {
+  background: var(--quizcraft-secondary);
+  color: var(--quizcraft-text-dark);
+  border-radius: 10px;
+  box-shadow: var(--quizcraft-shadow);
+  margin-bottom: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  min-height: 180px;
+}
+
+.quizcraft-btn {
+  background-color: var(--quizcraft-primary);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 0 4px;
+  transition: background 0.14s;
+}
+
+.quizcraft-btn-accent {
+  background-color: var(--quizcraft-accent);
+  color: #fff;
+}
+
+.quizcraft-btn:hover,
+.quizcraft-btn-accent:hover {
+  background-color: #1984bc; /* slightly darker shade */
+}
+
+.quizcraft-card-create {
+  border: 2px dashed var(--quizcraft-primary);
+  color: var(--quizcraft-primary);
+  background: #fff;
+  min-width: 220px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quizcraft-input {
+  border: 1.5px solid var(--quizcraft-border);
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 15px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  width: 100%;
+  color: #222;
+  background: #f9fcfe;
+  box-sizing: border-box;
+}
+
+.quizcraft-form label {
+  font-weight: 500;
+  margin: 4px 0 2px 0;
+  display: block;
+  color: var(--quizcraft-text-dark);
+}
+
+.quizcraft-form {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 16px #e4edf5;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 36px 34px;
+}
+
+.quizcraft-question-list {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.quizcraft-preview-form {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px #deeefa;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 34px 20px;
+}
+
+.quizcraft-footer {
+  margin-top: 42px;
+  text-align: center;
+  padding: 22px 0 14px;
+  font-size: 14px;
+  color: #999;
+}
+
+@media (max-width: 650px) {
+  .quizcraft-form, .quizcraft-preview-form {
+    padding: 18px 4vw;
+    max-width: 98vw;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    max-width: 97vw;
+    padding: 0 6vw;
+  }
+}
+/* --- QUIZCRAFT CUSTOM STYLES (end) --- */
